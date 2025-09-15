@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { 
   Menu as MenuIcon, 
@@ -10,7 +10,6 @@ import {
   MapPin, 
   Mail,
   Calendar,
-  Users,
   ChefHat,
   Wine,
   Star,
@@ -55,19 +54,16 @@ export default function Home() {
     hidden: { 
       opacity: 0, 
       y: 60,
-      scale: 0.9,
-      rotateX: -15
+      scale: 0.9
     },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
-      rotateX: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 12,
-        stiffness: 100,
-        duration: 0.8
+        stiffness: 100
       }
     }
   };
@@ -200,13 +196,12 @@ export default function Home() {
 
           {/* Desktop Menu */}
           <nav className="hidden lg:flex space-x-8">
-            {menuItems.map((item, index) => (
+            {menuItems.map((item) => (
               <motion.button
                 key={item.section}
                 onClick={() => scrollToSection(item.section)}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
                 whileHover={{ 
                   scale: 1.1,
                   color: '#DAA520',
@@ -303,10 +298,11 @@ export default function Home() {
                     animate="visible"
                     className="space-y-6"
                   >
-                    {menuItems.map((item, index) => (
+                    {menuItems.map((item) => (
                       <motion.button
                         key={item.section}
-                        variants={itemVariants}
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
                         onClick={() => scrollToSection(item.section)}
                         whileHover={{ 
                           x: 10,
@@ -430,8 +426,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
@@ -887,10 +882,11 @@ export default function Home() {
                 whileHover={{ scale: 1.02, rotate: 1 }}
                 className="relative overflow-hidden rounded-2xl border-2 border-gold/30"
               >
-                <img
-                  src="https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80"
-                  alt="Chef at work"
-                  className="w-full h-96 object-cover"
+                <div 
+                  className="w-full h-96 bg-cover bg-center bg-no-repeat"
+                  style={{
+                    backgroundImage: 'url("https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80")'
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               </motion.div>
