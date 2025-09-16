@@ -898,7 +898,7 @@ export default function LuxuryHotelPage() {
             </motion.div>
             
             <p className="text-gray-500 text-center md:text-right">
-              © 2024 The Heritage Bangalore. Culinary Excellence Redefined.
+              © 2024 The Heritage Bangalore. Culinary Excellence 
             </p>
           </div>
         </div>
