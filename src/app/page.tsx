@@ -60,11 +60,7 @@ export default function PremiumHotelWebsite() {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
+    visible: { opacity: 1, y: 0 }
   };
 
   // Sample data with better content
@@ -358,6 +354,11 @@ export default function PremiumHotelWebsite() {
             initial="hidden"
             animate="visible"
             variants={containerVariants}
+            transition={{ 
+              staggerChildren: 0.2,
+              delayChildren: 0.1,
+              ease: "easeOut"
+            }}
             className="space-y-8"
           >
             <motion.div variants={itemVariants} className="space-y-4">
