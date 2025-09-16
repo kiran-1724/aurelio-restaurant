@@ -144,7 +144,7 @@ export default function LuxuryHotelPage() {
   // Blob cursor effect
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     setMousePosition({
       x: e.clientX,
       y: e.clientY
