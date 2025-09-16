@@ -44,8 +44,8 @@ export default function LuxuryHotelRestaurant() {
   const [searchQuery, setSearchQuery] = useState('');
   const [priceFilter, setPriceFilter] = useState('all');
   const [sortBy, setSortBy] = useState('popular');
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isScrolled, setIsScrolled] = useState(false);
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null); // State for new nav animation
 
   // Scroll detection for header
   useEffect(() => {
@@ -242,32 +242,10 @@ export default function LuxuryHotelRestaurant() {
       }
     });
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    setMousePosition({ x: e.clientX, y: e.clientY });
-  };
-
   return (
     <div 
       className="min-h-screen bg-gradient-to-b from-amber-50 via-white to-amber-50/30 text-gray-900 overflow-x-hidden"
-      onMouseMove={handleMouseMove}
     >
-      {/* Advanced Floating Cursor */}
-      <motion.div
-        className="fixed top-0 left-0 w-8 h-8 pointer-events-none z-50 mix-blend-difference"
-        animate={{
-          x: mousePosition.x - 16,
-          y: mousePosition.y - 16,
-        }}
-        transition={{
-          type: "spring",
-          damping: 30,
-          stiffness: 500,
-          mass: 0.5
-        }}
-      >
-        <div className="w-full h-full bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full opacity-80" />
-      </motion.div>
-
       {/* Modern Navigation Header */}
       <motion.nav 
         initial={{ y: -20, opacity: 0 }}
@@ -307,7 +285,10 @@ export default function LuxuryHotelRestaurant() {
             
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
-              <motion.div className="flex items-center space-x-6">
+              <motion.div 
+                className="flex items-center space-x-2"
+                onMouseLeave={() => setHoveredLink(null)} // Clear hover on leaving the container
+              >
                 {[
                   { name: 'Home', href: '/' },
                   { name: 'Menu', href: '/menu' },
@@ -316,15 +297,20 @@ export default function LuxuryHotelRestaurant() {
                 ].map((item) => (
                   <Link key={item.name} href={item.href}>
                     <motion.div
-                      className="relative text-gray-700 hover:text-amber-600 font-medium transition-colors cursor-pointer group"
-                      whileHover={{ y: -2 }}
+                      onMouseEnter={() => setHoveredLink(item.name)} // Set hover on entering link
+                      className="relative text-gray-700 font-medium transition-colors cursor-pointer px-4 py-2"
                     >
-                      {item.name}
-                      <motion.div
-                        className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-amber-400 to-yellow-500"
-                        initial={{ scaleX: 0 }}
-                        whileHover={{ scaleX: 1 }}
-                      />
+                      {hoveredLink === item.name && (
+                        <motion.div
+                          layoutId="nav-pill"
+                          className="absolute inset-0 bg-amber-100/70 rounded-full z-0"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                        />
+                      )}
+                      <span className="relative z-10">{item.name}</span>
                     </motion.div>
                   </Link>
                 ))}
