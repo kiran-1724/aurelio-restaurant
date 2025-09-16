@@ -1,18 +1,15 @@
 'use client';
 
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Calendar, 
   Users, 
   Star, 
-  Waves, 
   MapPin, 
   Phone, 
   Mail, 
   Menu,
   X,
-  Shield,
-  Sparkles,
   ChefHat,
   Wine,
   Play,
@@ -22,213 +19,161 @@ import {
   Facebook,
   Twitter,
   Linkedin,
-  ArrowUp,
-  Quote,
-  Camera,
-  Zap,
-  Heart
+  Clock,
+  Award,
+  Shield,
+  Utensils,
+  Heart,
+  Quote
 } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-export default function PremiumHotelWebsite() {
+export default function LuxuryHotelRestaurant() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeMenuCategory, setActiveMenuCategory] = useState('all');
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [selectedRoom, setSelectedRoom] = useState(0);
-  
-  const { scrollY, scrollYProgress } = useScroll();
-  const backgroundY = useTransform(scrollY, [0, 1000], [0, -300]);
-  const textY = useTransform(scrollY, [0, 1000], [0, -150]);
 
-  // Loading animation
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 2000);
-    return () => clearTimeout(timer);
-  }, []);
+  const menuCategories = [
+    { id: 'all', name: 'All Menu', icon: Utensils },
+    { id: 'appetizers', name: 'Appetizers', icon: Wine },
+    { id: 'mains', name: 'Main Course', icon: ChefHat },
+    { id: 'desserts', name: 'Desserts', icon: Heart }
+  ];
 
-  // Enhanced animations
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  };
-
-  // Sample data with better content
-  const rooms = [
+  const menuItems = [
     {
       id: 1,
-      name: "Emperor Suite",
-      price: "₹35,000",
-      originalPrice: "₹42,000",
-      size: "120 sqm",
-      view: "City Skyline",
-      guests: "3 Guests",
-      features: ["Private Butler", "Infinity View", "Wine Cellar", "Helipad Access", "24K Gold Fixtures"],
-      image: "imperial-suite",
-      badge: "Most Popular"
+      name: "Tandoori Lamb Chops",
+      description: "Succulent lamb marinated in aromatic spices, grilled to perfection in our clay oven",
+      price: "₹2,850",
+      category: "mains",
+      image: "tandoori-lamb",
+      badge: "Chef's Special",
+      rating: 4.9
     },
     {
       id: 2,
-      name: "Presidential Villa",
-      price: "₹65,000",
-      originalPrice: "₹75,000",
-      size: "300 sqm",
-      view: "Panoramic",
-      guests: "6 Guests",
-      features: ["Private Chef", "Infinity Pool", "Cinema Room", "Spa Suite", "Dedicated Concierge"],
-      image: "presidential-villa",
-      badge: "Ultra Luxury"
+      name: "Truffle Paneer Tikka",
+      description: "Premium cottage cheese infused with black truffle, served with mint chutney",
+      price: "₹1,650",
+      category: "appetizers",
+      image: "truffle-paneer",
+      badge: "Vegetarian",
+      rating: 4.8
     },
     {
       id: 3,
-      name: "Royal Penthouse",
-      price: "₹28,500",
-      originalPrice: "₹32,000",
-      size: "85 sqm",
-      view: "Garden Vista",
-      guests: "2 Guests",
-      features: ["Marble Bath", "Private Terrace", "Art Collection", "Premium Amenities", "Personal Valet"],
-      image: "royal-penthouse",
-      badge: "Romantic"
-    }
-  ];
-
-  const experiences = [
-    {
-      icon: ChefHat,
-      title: "Michelin-Star Dining",
-      description: "Curated by world-renowned chefs",
-      details: "3 award-winning restaurants featuring molecular gastronomy and authentic regional cuisine",
-      color: "from-orange-500 to-red-500"
+      name: "Saffron Kulfi Tasting",
+      description: "Traditional Indian ice cream with cardamom, pistachio, and rose varieties",
+      price: "₹850",
+      category: "desserts",
+      image: "saffron-kulfi",
+      badge: "Signature",
+      rating: 4.7
     },
     {
-      icon: Waves,
-      title: "Infinity Wellness",
-      description: "Rejuvenate mind, body & soul",
-      details: "25,000 sqft spa with thermal pools, cryotherapy, and ancient healing treatments",
-      color: "from-blue-500 to-teal-500"
+      id: 4,
+      name: "Butter Chicken Royal",
+      description: "Heritage recipe with tender chicken in rich tomato and cashew gravy",
+      price: "₹1,950",
+      category: "mains",
+      image: "butter-chicken",
+      badge: "Popular",
+      rating: 4.9
     },
     {
-      icon: Wine,
-      title: "Sommelier Collection",
-      description: "Rare wines from around the globe",
-      details: "Temperature-controlled cellars housing over 3,000 vintage selections",
-      color: "from-purple-500 to-pink-500"
+      id: 5,
+      name: "Caviar Samosas",
+      description: "Crispy pastries filled with spiced potatoes, topped with Iranian caviar",
+      price: "₹3,200",
+      category: "appetizers",
+      image: "caviar-samosa",
+      badge: "Luxury",
+      rating: 4.6
     },
     {
-      icon: Sparkles,
-      title: "Bespoke Experiences",
-      description: "Tailored luxury beyond imagination",
-      details: "Private helicopter tours, yacht charters, and exclusive cultural experiences",
-      color: "from-amber-500 to-orange-500"
+      id: 6,
+      name: "Gold Leaf Rasmalai",
+      description: "Cottage cheese dumplings in cardamom milk, garnished with 24k gold",
+      price: "₹1,200",
+      category: "desserts",
+      image: "gold-rasmalai",
+      badge: "Premium",
+      rating: 4.8
     }
   ];
 
   const testimonials = [
     {
-      name: "Ratan Tata",
-      title: "Chairman Emeritus, Tata Group",
-      quote: "Unparalleled service that redefines luxury hospitality in India.",
+      name: "Arjun Kapoor",
+      role: "Film Producer",
+      review: "Every dish is a masterpiece. The flavors transported me back to my grandmother's kitchen, but with a luxurious twist.",
       rating: 5,
       image: "guest-1"
     },
     {
-      name: "Priya Krishnan",
-      title: "CEO, Tech Innovation",
-      quote: "Every detail crafted to perfection. A truly transformative experience.",
+      name: "Priya Sharma",
+      role: "Food Critic",
+      review: "The Heritage redefines Indian fine dining. Impeccable service meets authentic flavors in the most elegant setting.",
       rating: 5,
       image: "guest-2"
     },
     {
-      name: "Ambassador Williams",
-      title: "Diplomatic Corps",
-      quote: "The epitome of elegance meets modern sophistication.",
+      name: "David Williams",
+      role: "Hotel Consultant",
+      review: "As someone who's dined at Michelin-starred restaurants globally, this stands among the very best.",
       rating: 5,
       image: "guest-3"
     }
   ];
 
-  // Mouse tracking
+  const filteredMenuItems = activeMenuCategory === 'all' 
+    ? menuItems 
+    : menuItems.filter(item => item.category === activeMenuCategory);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     setMousePosition({ x: e.clientX, y: e.clientY });
   };
 
-  // Loading Screen
-  if (!isLoaded) {
-    return (
-      <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center"
-        >
-          <motion.div
-            className="w-20 h-20 border-4 border-amber-500/30 border-t-amber-500 rounded-full mx-auto mb-8"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          />
-          <motion.h1
-            className="text-4xl font-bold bg-gradient-to-r from-amber-400 to-yellow-300 bg-clip-text text-transparent mb-4"
-            animate={{ opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            THE HERITAGE
-          </motion.h1>
-          <p className="text-amber-400/70">Crafting your luxury experience...</p>
-        </motion.div>
-      </div>
-    );
-  }
-
   return (
     <div 
-      className="min-h-screen bg-black text-white overflow-x-hidden"
+      className="min-h-screen bg-gradient-to-b from-amber-50 via-white to-amber-50/30 text-gray-900 overflow-x-hidden"
       onMouseMove={handleMouseMove}
     >
-      {/* Enhanced Cursor */}
+      {/* Floating Cursor */}
       <motion.div
-        className="fixed top-0 left-0 w-4 h-4 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full pointer-events-none z-50 mix-blend-screen"
+        className="fixed top-0 left-0 w-6 h-6 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full pointer-events-none z-50 mix-blend-multiply opacity-20"
         animate={{
-          x: mousePosition.x - 8,
-          y: mousePosition.y - 8,
+          x: mousePosition.x - 12,
+          y: mousePosition.y - 12,
         }}
         transition={{
           type: "spring",
           damping: 30,
-          stiffness: 300,
+          stiffness: 400,
         }}
       />
 
       {/* Navigation */}
       <motion.nav 
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        className="fixed top-0 w-full z-40 bg-black/95 backdrop-blur-xl border-b border-amber-500/20"
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        className="sticky top-0 w-full z-40 bg-white/95 backdrop-blur-lg border-b border-amber-200/50 shadow-sm"
       >
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <motion.div 
               whileHover={{ scale: 1.05 }}
-              className="flex items-center space-x-4"
+              className="flex items-center space-x-3"
             >
-              <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-yellow-500 rounded-lg flex items-center justify-center">
-                <Sparkles className="w-6 h-6 text-black" />
+              <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-yellow-500 rounded-xl flex items-center justify-center shadow-lg">
+                <ChefHat className="w-7 h-7 text-white" />
               </div>
               <div>
-                <div className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-yellow-300 bg-clip-text text-transparent">
-                  THE HERITAGE
+                <div className="text-2xl font-bold bg-gradient-to-r from-amber-600 to-yellow-600 bg-clip-text text-transparent">
+                  The Heritage
                 </div>
-                <div className="text-xs text-amber-400/70 -mt-1">BANGALORE</div>
+                <div className="text-xs text-amber-600/70 -mt-1">BANGALORE</div>
               </div>
             </motion.div>
             
@@ -236,32 +181,33 @@ export default function PremiumHotelWebsite() {
             <div className="hidden lg:flex items-center space-x-8">
               {[
                 { name: 'Home', href: '#home' },
-                { name: 'Suites', href: '#rooms' },
-                { name: 'Dining', href: '#dining' },
-                { name: 'Wellness', href: '#wellness' },
-                { name: 'Experiences', href: '#experiences' }
+                { name: 'Menu', href: '#menu' },
+                { name: 'About', href: '#about' },
+                { name: 'Contact', href: '#contact' }
               ].map((item) => (
                 <motion.a
                   key={item.name}
                   href={item.href}
-                  className="text-white/80 hover:text-amber-400 font-medium transition-colors relative"
+                  className="text-gray-700 hover:text-amber-600 font-medium transition-colors relative"
                   whileHover={{ y: -2 }}
                 >
                   {item.name}
-                  <motion.div
-                    className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-amber-400 to-yellow-500"
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                  />
                 </motion.a>
               ))}
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-gradient-to-r from-amber-500 to-yellow-500 text-black px-8 py-3 rounded-full font-bold hover:shadow-2xl hover:shadow-amber-500/25 transition-all"
-              >
-                Reserve Now
-              </motion.button>
+              
+              <motion.div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-2 text-sm text-gray-600">
+                  <MapPin className="w-4 h-4 text-amber-500" />
+                  <span>UB City, Bangalore</span>
+                </div>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-gradient-to-r from-amber-500 to-yellow-500 text-white px-8 py-3 rounded-full font-bold hover:shadow-lg transition-all"
+                >
+                  Book Table
+                </motion.button>
+              </motion.div>
             </div>
 
             {/* Mobile Menu Button */}
@@ -269,7 +215,7 @@ export default function PremiumHotelWebsite() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 text-amber-400"
+              className="lg:hidden p-2 text-amber-600"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </motion.button>
@@ -283,14 +229,14 @@ export default function PremiumHotelWebsite() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-black/95 backdrop-blur-xl border-t border-amber-500/20"
+              className="lg:hidden bg-white border-t border-amber-200/50"
             >
               <div className="px-6 py-6 space-y-4">
-                {['Home', 'Suites', 'Dining', 'Wellness', 'Experiences'].map((item) => (
+                {['Home', 'Menu', 'About', 'Contact'].map((item) => (
                   <motion.a
                     key={item}
                     href={`#${item.toLowerCase()}`}
-                    className="block text-xl font-medium text-white/80 hover:text-amber-400 py-2"
+                    className="block text-xl font-medium text-gray-700 hover:text-amber-600 py-2"
                     whileHover={{ x: 10 }}
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -299,9 +245,9 @@ export default function PremiumHotelWebsite() {
                 ))}
                 <motion.button
                   whileHover={{ scale: 1.02 }}
-                  className="w-full bg-gradient-to-r from-amber-500 to-yellow-500 text-black px-8 py-4 rounded-full font-bold mt-6"
+                  className="w-full bg-gradient-to-r from-amber-500 to-yellow-500 text-white px-8 py-4 rounded-full font-bold mt-6"
                 >
-                  Reserve Your Stay
+                  Reserve Your Table
                 </motion.button>
               </div>
             </motion.div>
@@ -309,514 +255,164 @@ export default function PremiumHotelWebsite() {
         </AnimatePresence>
       </motion.nav>
 
-      {/* Hero Section with Video Background */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Video Placeholder */}
-        <motion.div 
-          style={{ y: backgroundY }}
-          className="absolute inset-0 w-full h-full"
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black z-10" />
-          <div 
-            className="w-full h-full bg-gradient-to-br from-amber-900/20 via-black to-gray-900 bg-cover bg-center"
-            style={{
-              backgroundImage: "radial-gradient(circle at center, rgba(245,158,11,0.1) 0%, transparent 70%), linear-gradient(135deg, #000 0%, #1a1a1a 100%)"
-            }}
-          />
-          {/* Floating Elements */}
-          {[...Array(12)].map((_, index) => (
+      {/* Hero Section */}
+      <section id="home" className="relative py-24 px-6 overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div
-              key={index}
-              className="absolute w-2 h-2 bg-amber-400/30 rounded-full"
-              animate={{
-                x: [0, Math.random() * 200 - 100],
-                y: [0, Math.random() * 200 - 100],
-                opacity: [0.3, 0.8, 0.3]
-              }}
-              transition={{
-                duration: 4 + Math.random() * 4,
-                repeat: Infinity,
-                delay: index * 0.2
-              }}
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`
-              }}
-            />
-          ))}
-        </motion.div>
-
-        <motion.div 
-          style={{ y: textY }}
-          className="relative z-20 text-center max-w-6xl px-6"
-        >
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={containerVariants}
-            transition={{ 
-              staggerChildren: 0.2,
-              delayChildren: 0.1,
-              ease: "easeOut"
-            }}
-            className="space-y-8"
-          >
-            <motion.div variants={itemVariants} className="space-y-4">
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="space-y-8"
+            >
               <motion.div
-                className="inline-block px-6 py-2 bg-amber-500/10 border border-amber-500/30 rounded-full text-amber-400 text-sm font-medium"
-                animate={{ scale: [1, 1.02, 1] }}
-                transition={{ duration: 3, repeat: Infinity }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="inline-block px-6 py-2 bg-amber-100 border border-amber-200 rounded-full text-amber-700 text-sm font-medium"
               >
-                ✨ Bangalore&apos;s Most Prestigious Address
+                ✨ Authentic Indian Fine Dining
               </motion.div>
               
               <motion.h1 
-                className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight"
-                variants={itemVariants}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="text-5xl md:text-7xl font-bold leading-tight"
               >
-                <motion.span
-                  className="block bg-gradient-to-r from-white via-amber-200 to-yellow-400 bg-clip-text text-transparent"
-                  animate={{
-                    backgroundPosition: ["0%", "100%", "0%"]
-                  }}
-                  transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    ease: "linear"
-                  }}
-                  style={{
-                    backgroundSize: "200%"
-                  }}
-                >
-                  THE
-                </motion.span>
-                <motion.span
-                  className="block bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500 bg-clip-text text-transparent"
-                  animate={{
-                    backgroundPosition: ["100%", "0%", "100%"]
-                  }}
-                  transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    ease: "linear"
-                  }}
-                  style={{
-                    backgroundSize: "200%"
-                  }}
-                >
-                  HERITAGE
-                </motion.span>
+                Savor the Taste of
+                <span className="block bg-gradient-to-r from-amber-600 to-yellow-600 bg-clip-text text-transparent">
+                  Perfection
+                </span>
               </motion.h1>
-            </motion.div>
 
-            <motion.p 
-              variants={itemVariants}
-              className="text-xl md:text-2xl text-gray-300 font-light leading-relaxed max-w-4xl mx-auto"
-            >
-              Where architectural grandeur meets contemporary luxury. 
-              <span className="text-amber-400"> Experience India&apos;s finest hospitality </span>
-              in the heart of Bangalore&apos;s tech capital.
-            </motion.p>
-
-            <motion.div 
-              variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-6 justify-center pt-8"
-            >
-              <motion.button 
-                whileHover={{ 
-                  scale: 1.05,
-                  boxShadow: "0 25px 50px rgba(245, 158, 11, 0.4)"
-                }}
-                whileTap={{ scale: 0.95 }}
-                className="group bg-gradient-to-r from-amber-500 to-yellow-500 text-black px-12 py-4 text-lg font-bold rounded-full hover:from-amber-400 hover:to-yellow-400 transition-all duration-300 flex items-center justify-center"
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="text-xl text-gray-600 leading-relaxed max-w-lg"
               >
-                Begin Your Journey
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </motion.button>
-              
-              <motion.button 
-                whileHover={{ 
-                  scale: 1.05,
-                  backgroundColor: 'rgba(245, 158, 11, 0.1)'
-                }}
-                whileTap={{ scale: 0.95 }}
-                className="group border-2 border-amber-400/50 text-amber-400 px-12 py-4 text-lg font-bold rounded-full hover:border-amber-400 transition-all duration-300 flex items-center justify-center backdrop-blur-sm"
+                Fresh ingredients, mouth-watering recipes, and a passion for authentic Indian flavors 
+                delivered to your table in the most elegant setting.
+              </motion.p>
+
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="flex flex-col sm:flex-row gap-4"
               >
-                <Play className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform" />
-                Virtual Tour
-              </motion.button>
-            </motion.div>
-
-            {/* Statistics */}
-            <motion.div
-              variants={itemVariants}
-              className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-16 max-w-3xl mx-auto"
-            >
-              {[
-                { number: "50+", label: "Luxury Suites" },
-                { number: "25", label: "Years Legacy" },
-                { number: "98", label: "Guest Satisfaction" },
-                { number: "24/7", label: "Concierge" }
-              ].map((stat, index) => (
-                <motion.div
-                  key={index}
-                  className="text-center group cursor-pointer"
-                  whileHover={{ y: -5 }}
-                >
-                  <div className="text-3xl md:text-4xl font-bold text-amber-400 mb-2 group-hover:scale-110 transition-transform">
-                    {stat.number}
-                  </div>
-                  <div className="text-gray-400 text-sm uppercase tracking-wider group-hover:text-amber-400 transition-colors">
-                    {stat.label}
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
-        </motion.div>
-
-        {/* Scroll Indicator */}
-        <motion.div 
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
-        >
-          <div className="w-6 h-12 border-2 border-amber-400/50 rounded-full flex justify-center cursor-pointer hover:border-amber-400 transition-colors">
-            <motion.div 
-              className="w-1.5 h-4 bg-amber-400 rounded-full mt-2"
-              animate={{ y: [0, 20, 0], opacity: [1, 0, 1] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-            />
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Enhanced Booking Widget */}
-      <motion.section
-        initial={{ opacity: 0, y: 100 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="relative -mt-32 z-30 px-6"
-      >
-        <div className="max-w-6xl mx-auto">
-          <motion.div 
-            className="bg-gradient-to-r from-black/90 to-gray-900/90 backdrop-blur-2xl border border-amber-500/30 rounded-3xl p-8 shadow-2xl"
-            whileHover={{ 
-              borderColor: 'rgba(245, 158, 11, 0.6)',
-              boxShadow: '0 25px 50px rgba(245, 158, 11, 0.2)'
-            }}
-          >
-            <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-white mb-2">Reserve Your Luxury Experience</h3>
-              <p className="text-amber-400/70">Best rates guaranteed • Instant confirmation</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 items-end">
-              <div className="lg:col-span-2">
-                <label className="block text-sm font-medium text-amber-400 mb-3">Check-in & Check-out</label>
-                <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 flex items-center cursor-pointer hover:border-amber-500/50 transition-all group">
-                  <Calendar className="w-5 h-5 text-amber-400 mr-3 group-hover:scale-110 transition-transform" />
-                  <div>
-                    <div className="text-white font-medium">Mar 15 - 18, 2024</div>
-                    <div className="text-gray-400 text-sm">3 nights</div>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-amber-400 mb-3">Guests</label>
-                <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 flex items-center cursor-pointer hover:border-amber-500/50 transition-all group">
-                  <Users className="w-5 h-5 text-amber-400 mr-3 group-hover:scale-110 transition-transform" />
-                  <div>
-                    <div className="text-white font-medium">2 Adults</div>
-                    <div className="text-gray-400 text-sm">1 Room</div>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-amber-400 mb-3">Suite Type</label>
-                <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 flex items-center cursor-pointer hover:border-amber-500/50 transition-all group">
-                  <Sparkles className="w-5 h-5 text-amber-400 mr-3 group-hover:scale-110 transition-transform" />
-                  <div>
-                    <div className="text-white font-medium">Emperor</div>
-                    <div className="text-gray-400 text-sm">Premium</div>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-amber-400 mb-3">Experiences</label>
-                <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 flex items-center cursor-pointer hover:border-amber-500/50 transition-all group">
-                  <Wine className="w-5 h-5 text-amber-400 mr-3 group-hover:scale-110 transition-transform" />
-                  <div>
-                    <div className="text-white font-medium">Add-ons</div>
-                    <div className="text-gray-400 text-sm">Optional</div>
-                  </div>
-                </div>
-              </div>
-
-              <motion.button
-                whileHover={{ 
-                  scale: 1.02,
-                  boxShadow: "0 20px 40px rgba(245, 158, 11, 0.4)"
-                }}
-                whileTap={{ scale: 0.98 }}
-                className="bg-gradient-to-r from-amber-500 to-yellow-500 text-black px-8 py-4 rounded-xl font-bold text-lg hover:from-amber-400 hover:to-yellow-400 transition-all duration-300 flex items-center justify-center group"
-              >
-                Book Now
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </motion.button>
-            </div>
-
-            <div className="flex items-center justify-center mt-6 space-x-6 text-sm text-amber-400/70">
-              <div className="flex items-center">
-                <Check className="w-4 h-4 mr-2" />
-                Free Cancellation
-              </div>
-              <div className="flex items-center">
-                <Shield className="w-4 h-4 mr-2" />
-                Secure Booking
-              </div>
-              <div className="flex items-center">
-                <Zap className="w-4 h-4 mr-2" />
-                Instant Confirmation
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Premium Suites Section */}
-      <section id="rooms" className="py-32 px-6">
-        <div className="max-w-7xl mx-auto">
-          <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-20"
-          >
-            <motion.div
-              className="inline-block px-6 py-2 bg-amber-500/10 border border-amber-500/30 rounded-full text-amber-400 text-sm font-medium mb-6"
-              whileHover={{ scale: 1.05 }}
-            >
-              🏰 Luxury Accommodations
-            </motion.div>
-            <h2 className="text-5xl md:text-7xl font-bold mb-6">
-              Palatial <span className="text-amber-400">Suites</span>
-            </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-              Each suite is a masterpiece of design, featuring bespoke furnishings, 
-              premium amenities, and breathtaking views of Bangalore&apos;s skyline.
-            </p>
-          </motion.div>
-
-          {/* Room Selection Tabs */}
-          <div className="flex justify-center mb-12">
-            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-2 flex">
-              {rooms.map((room, index) => (
-                <motion.button
-                  key={room.id}
-                  onClick={() => setSelectedRoom(index)}
-                  className={`px-6 py-3 rounded-xl font-medium transition-all ${
-                    selectedRoom === index
-                      ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-black'
-                      : 'text-gray-400 hover:text-white'
-                  }`}
-                  whileHover={{ scale: 1.05 }}
+                <motion.button 
+                  whileHover={{ 
+                    scale: 1.05,
+                    boxShadow: "0 20px 40px rgba(245, 158, 11, 0.3)"
+                  }}
                   whileTap={{ scale: 0.95 }}
+                  className="bg-gradient-to-r from-amber-500 to-yellow-500 text-white px-10 py-4 text-lg font-bold rounded-full hover:from-amber-400 hover:to-yellow-400 transition-all flex items-center justify-center group"
                 >
-                  {room.name.split(' ')[0]}
+                  Order Now
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </motion.button>
-              ))}
-            </div>
-          </div>
+                
+                <motion.button 
+                  whileHover={{ 
+                    scale: 1.05,
+                    backgroundColor: 'rgba(245, 158, 11, 0.1)'
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  className="border-2 border-amber-500 text-amber-600 px-10 py-4 text-lg font-bold rounded-full hover:border-amber-400 transition-all flex items-center justify-center"
+                >
+                  <Play className="mr-2 w-5 h-5" />
+                  View Menu
+                </motion.button>
+              </motion.div>
+            </motion.div>
 
-          {/* Featured Room */}
-          <motion.div
-            key={selectedRoom}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="grid lg:grid-cols-2 gap-12 items-center"
-          >
-            <div className="order-2 lg:order-1">
-              <div className="space-y-6">
-                <div className="flex items-center space-x-4">
-                  <div className={`px-4 py-2 rounded-full text-sm font-medium ${
-                    rooms[selectedRoom].badge === 'Most Popular' ? 'bg-green-500/20 text-green-400' :
-                    rooms[selectedRoom].badge === 'Ultra Luxury' ? 'bg-purple-500/20 text-purple-400' :
-                    'bg-pink-500/20 text-pink-400'
-                  }`}>
-                    {rooms[selectedRoom].badge}
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                    ))}
-                  </div>
-                </div>
-
-                <h3 className="text-4xl md:text-5xl font-bold text-white">
-                  {rooms[selectedRoom].name}
-                </h3>
-
-                <div className="flex items-baseline space-x-4">
-                  <span className="text-4xl font-bold text-amber-400">
-                    {rooms[selectedRoom].price}
-                  </span>
-                  <span className="text-xl text-gray-500 line-through">
-                    {rooms[selectedRoom].originalPrice}
-                  </span>
-                  <span className="text-lg text-gray-400">per night</span>
-                </div>
-
-                <div className="grid grid-cols-3 gap-4 py-6">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-amber-400">{rooms[selectedRoom].size}</div>
-                    <div className="text-gray-400 text-sm">Suite Size</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-amber-400">{rooms[selectedRoom].view}</div>
-                    <div className="text-gray-400 text-sm">View</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-amber-400">{rooms[selectedRoom].guests}</div>
-                    <div className="text-gray-400 text-sm">Capacity</div>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <h4 className="text-xl font-semibold text-white mb-4">Exclusive Features</h4>
-                  {rooms[selectedRoom].features.map((feature, index) => (
-                    <motion.div
-                      key={index}
-                      className="flex items-center space-x-3"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                    >
-                      <Check className="w-5 h-5 text-amber-400 flex-shrink-0" />
-                      <span className="text-gray-300">{feature}</span>
-                    </motion.div>
-                  ))}
-                </div>
-
-                <div className="flex space-x-4 pt-8">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex-1 bg-gradient-to-r from-amber-500 to-yellow-500 text-black px-8 py-4 rounded-xl font-bold hover:from-amber-400 hover:to-yellow-400 transition-all"
-                  >
-                    Reserve Suite
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-8 py-4 border-2 border-amber-500/50 text-amber-400 rounded-xl font-bold hover:border-amber-400 transition-all"
-                  >
-                    Virtual Tour
-                  </motion.button>
-                </div>
-              </div>
-            </div>
-
-            <div className="order-1 lg:order-2">
-              <motion.div
-                className="relative group cursor-pointer"
-                whileHover={{ scale: 1.02 }}
-              >
-                <div className="aspect-[4/3] bg-gradient-to-br from-amber-900/20 via-gray-800 to-gray-900 rounded-3xl overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10" />
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-amber-500/10 to-transparent">
-                    <Camera className="w-24 h-24 text-amber-400/50" />
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative"
+            >
+              <div className="relative group">
+                <div className="absolute -inset-4 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-3xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                <div className="relative aspect-[4/3] bg-gradient-to-br from-amber-100 to-yellow-100 rounded-3xl overflow-hidden shadow-2xl">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                  <div className="w-full h-full flex items-center justify-center">
+                    <div className="text-center space-y-4">
+                      <ChefHat className="w-24 h-24 text-amber-500 mx-auto" />
+                      <div className="text-amber-700 font-medium">Signature Dishes</div>
+                    </div>
                   </div>
                   <motion.div
-                    className="absolute inset-0 bg-black/20 flex items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-opacity"
-                    whileHover={{ backgroundColor: 'rgba(0,0,0,0.3)' }}
+                    className="absolute inset-0 bg-black/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                    whileHover={{ backgroundColor: 'rgba(0,0,0,0.2)' }}
                   >
                     <Play className="w-16 h-16 text-white" />
                   </motion.div>
                 </div>
-                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-amber-500 to-yellow-500 text-black px-6 py-3 rounded-2xl font-bold text-lg shadow-2xl">
-                  360° View
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
+                
+                {/* Floating badge */}
+                <motion.div
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                  className="absolute -top-4 -right-4 bg-white border-4 border-amber-500 rounded-2xl px-6 py-3 shadow-lg"
+                >
+                  <div className="text-amber-600 font-bold text-lg">NEW</div>
+                  <div className="text-gray-600 text-sm -mt-1">Menu</div>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Experiences Section */}
-      <section id="experiences" className="py-32 px-6 bg-gradient-to-b from-transparent to-gray-900/30">
+      {/* Featured Dishes Preview */}
+      <section className="py-20 px-6 bg-gradient-to-r from-amber-50 to-yellow-50">
         <div className="max-w-7xl mx-auto">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
+            className="text-center mb-16"
           >
-            <motion.div
-              className="inline-block px-6 py-2 bg-amber-500/10 border border-amber-500/30 rounded-full text-amber-400 text-sm font-medium mb-6"
-              whileHover={{ scale: 1.05 }}
-            >
-              ✨ Curated Experiences
-            </motion.div>
-            <h2 className="text-5xl md:text-7xl font-bold mb-6">
-              Beyond <span className="text-amber-400">Luxury</span>
-            </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-              Immerse yourself in extraordinary experiences crafted exclusively for our distinguished guests.
-            </p>
+            <div className="flex items-center justify-center space-x-2 mb-6">
+              <Award className="w-8 h-8 text-amber-500" />
+              <span className="text-2xl font-bold text-gray-800">A Feast for Your Eyes</span>
+            </div>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {experiences.map((experience, index) => (
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {menuItems.slice(0, 4).map((item, index) => (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
+                key={item.id}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
-                whileHover={{ 
-                  y: -10,
-                  scale: 1.02,
-                  rotateY: 2
-                }}
-                className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900/50 to-gray-800/50 backdrop-blur-sm border border-gray-700/50 p-8 cursor-pointer"
-                style={{ transformStyle: 'preserve-3d' }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer"
               >
-                <div className="relative z-10">
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${experience.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                    <experience.icon className="w-8 h-8 text-white" />
+                <div className="aspect-square bg-gradient-to-br from-amber-100 to-yellow-100 flex items-center justify-center relative overflow-hidden">
+                  <ChefHat className="w-16 h-16 text-amber-400 group-hover:scale-110 transition-transform" />
+                  <div className="absolute top-4 left-4 bg-amber-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                    {item.badge}
                   </div>
-                  
-                  <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-amber-400 transition-colors">
-                    {experience.title}
-                  </h3>
-                  
-                  <p className="text-amber-400/80 text-lg font-medium mb-4">
-                    {experience.description}
-                  </p>
-                  
-                  <p className="text-gray-400 leading-relaxed mb-6">
-                    {experience.details}
-                  </p>
-
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    className="flex items-center text-amber-400 font-semibold group-hover:text-amber-300 transition-colors"
-                  >
-                    Learn More
-                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </motion.button>
                 </div>
-
-                {/* Background decoration */}
-                <div className="absolute top-0 right-0 w-32 h-32 opacity-5 group-hover:opacity-10 transition-opacity">
-                  <experience.icon className="w-full h-full" />
+                <div className="p-6">
+                  <h3 className="font-bold text-lg mb-2 group-hover:text-amber-600 transition-colors">
+                    {item.name}
+                  </h3>
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                    {item.description}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xl font-bold text-amber-600">{item.price}</span>
+                    <div className="flex items-center space-x-1">
+                      <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                      <span className="text-sm text-gray-600">{item.rating}</span>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -824,24 +420,134 @@ export default function PremiumHotelWebsite() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-32 px-6">
+      {/* Main Menu Section */}
+      <section id="menu" className="py-32 px-6">
         <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <div className="flex items-center justify-center space-x-2 mb-6">
+              <Award className="w-8 h-8 text-amber-500" />
+              <span className="text-sm font-medium text-amber-600 uppercase tracking-wider">Heritage Menu</span>
+            </div>
+            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+              Our Signature <span className="text-amber-600">Dishes</span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              From classic favorites to modern culinary creations, our menu is designed to tantalize your taste buds. 
+              Every dish is made with the freshest ingredients and an extra dash of love.
+            </p>
+          </motion.div>
+
+          {/* Menu Categories */}
+          <div className="flex justify-center mb-16">
+            <div className="bg-white border border-amber-200 rounded-2xl p-2 flex flex-wrap gap-2 shadow-lg">
+              {menuCategories.map((category) => (
+                <motion.button
+                  key={category.id}
+                  onClick={() => setActiveMenuCategory(category.id)}
+                  className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all ${
+                    activeMenuCategory === category.id
+                      ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white shadow-lg'
+                      : 'text-gray-600 hover:text-amber-600 hover:bg-amber-50'
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <category.icon className="w-5 h-5" />
+                  <span>{category.name}</span>
+                </motion.button>
+              ))}
+            </div>
+          </div>
+
+          {/* Menu Items Grid */}
           <motion.div 
+            layout
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            <AnimatePresence mode="wait">
+              {filteredMenuItems.map((item, index) => (
+                <motion.div
+                  key={item.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  className="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer border border-amber-100"
+                >
+                  <div className="relative aspect-[4/3] bg-gradient-to-br from-amber-100 to-yellow-100 overflow-hidden">
+                    <div className="w-full h-full flex items-center justify-center">
+                      <ChefHat className="w-20 h-20 text-amber-400 group-hover:scale-110 transition-transform" />
+                    </div>
+                    <div className="absolute top-4 left-4">
+                      <div className={`px-3 py-1 rounded-full text-xs font-bold text-white ${
+                        item.badge === 'Chef\'s Special' ? 'bg-red-500' :
+                        item.badge === 'Popular' ? 'bg-green-500' :
+                        item.badge === 'Luxury' ? 'bg-purple-500' :
+                        'bg-amber-500'
+                      }`}>
+                        {item.badge}
+                      </div>
+                    </div>
+                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-2 rounded-full">
+                      <div className="flex items-center space-x-1">
+                        <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                        <span className="text-sm font-medium">{item.rating}</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="p-6">
+                    <div className="flex items-start justify-between mb-3">
+                      <h3 className="text-xl font-bold text-gray-800 group-hover:text-amber-600 transition-colors">
+                        {item.name}
+                      </h3>
+                      <span className="text-2xl font-bold text-amber-600">{item.price}</span>
+                    </div>
+                    
+                    <p className="text-gray-600 leading-relaxed mb-4">
+                      {item.description}
+                    </p>
+
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-full bg-gradient-to-r from-amber-50 to-yellow-50 border-2 border-amber-200 text-amber-600 py-3 rounded-xl font-semibold hover:from-amber-100 hover:to-yellow-100 hover:border-amber-300 transition-all flex items-center justify-center group/btn"
+                    >
+                      Add to Order
+                      <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                    </motion.button>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-32 px-6 bg-gradient-to-r from-amber-50 to-yellow-50">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-center mb-20"
           >
-            <motion.div
-              className="inline-block px-6 py-2 bg-amber-500/10 border border-amber-500/30 rounded-full text-amber-400 text-sm font-medium mb-6"
-              whileHover={{ scale: 1.05 }}
-            >
-              💬 Guest Stories
-            </motion.div>
-            <h2 className="text-5xl md:text-7xl font-bold mb-6">
-              Cherished <span className="text-amber-400">Memories</span>
-            </h2>
+            <div className="flex items-center justify-center space-x-2 mb-6">
+              <Heart className="w-8 h-8 text-red-500" />
+              <span className="text-2xl font-bold text-gray-800">They Love&apos;s Us</span>
+            </div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              From classic favorites to modern culinary creations, our menu is designed to tantalize your taste buds. Every 
+              dish is made with the freshest ingredients and an extra dash of love.
+            </p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -852,35 +558,31 @@ export default function PremiumHotelWebsite() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-gradient-to-br from-gray-900/50 to-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-3xl p-8 relative group cursor-pointer"
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all border border-amber-100"
               >
-                <Quote className="w-12 h-12 text-amber-400/20 mb-6" />
+                <Quote className="w-12 h-12 text-amber-400/30 mb-6" />
                 
-                <p className="text-gray-300 text-lg leading-relaxed mb-6 italic">
-                  &ldquo;{testimonial.quote}&rdquo;
-                </p>
-
-                <div className="flex items-center space-x-1 mb-6">
+                <div className="flex items-center space-x-1 mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
                   ))}
                 </div>
 
+                <p className="text-gray-700 leading-relaxed mb-6 italic text-lg">
+                  &ldquo;{testimonial.review}&rdquo;
+                </p>
+
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center">
-                    <span className="text-black font-bold text-lg">
+                    <span className="text-white font-bold text-lg">
                       {testimonial.name.split(' ').map(n => n[0]).join('')}
                     </span>
                   </div>
                   <div>
-                    <div className="text-white font-semibold">{testimonial.name}</div>
-                    <div className="text-amber-400/70 text-sm">{testimonial.title}</div>
+                    <div className="font-semibold text-gray-800">{testimonial.name}</div>
+                    <div className="text-amber-600 text-sm">{testimonial.role}</div>
                   </div>
-                </div>
-
-                <div className="absolute top-0 right-0 w-24 h-24 opacity-5 group-hover:opacity-10 transition-opacity">
-                  <Heart className="w-full h-full" />
                 </div>
               </motion.div>
             ))}
@@ -888,33 +590,61 @@ export default function PremiumHotelWebsite() {
         </div>
       </section>
 
+      {/* CTA Section */}
+      <section className="py-32 px-6 bg-gradient-to-r from-amber-600 to-yellow-500">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
+            <h2 className="text-5xl md:text-6xl font-bold text-white">
+              Don&apos;t Wait - Order Now!
+            </h2>
+            <p className="text-xl text-white/90 leading-relaxed">
+              Fresh ingredients, mouth-watering recipes, and a passion for good food 
+              delivered to your door or ready for pick-up.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-white text-amber-600 px-12 py-4 text-lg font-bold rounded-full hover:shadow-2xl transition-all flex items-center justify-center group"
+              >
+                Order Now
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </motion.button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="bg-gradient-to-t from-black to-gray-900/50 border-t border-amber-500/20 py-20 px-6">
+      <footer className="bg-gray-900 text-white py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-12">
             {/* Brand */}
-            <div className="md:col-span-2">
-              <div className="flex items-center space-x-4 mb-6">
+            <div>
+              <div className="flex items-center space-x-3 mb-6">
                 <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-yellow-500 rounded-xl flex items-center justify-center">
-                  <Sparkles className="w-7 h-7 text-black" />
+                  <ChefHat className="w-7 h-7 text-white" />
                 </div>
                 <div>
-                  <div className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-yellow-300 bg-clip-text text-transparent">
-                    THE HERITAGE
-                  </div>
-                  <div className="text-sm text-amber-400/70">BANGALORE</div>
+                  <div className="text-2xl font-bold text-white">The Heritage</div>
+                  <div className="text-sm text-amber-400">BANGALORE</div>
                 </div>
               </div>
-              <p className="text-gray-400 leading-relaxed mb-8 max-w-md">
-                Where architectural grandeur meets contemporary luxury in India&apos;s tech capital. 
-                Experience unparalleled hospitality redefined.
+              <p className="text-gray-400 leading-relaxed mb-8">
+                Where culinary artistry meets luxury hospitality in India&apos;s tech capital.
               </p>
               <div className="flex space-x-4">
-                {[Instagram, Facebook, Twitter, Linkedin].map((Social, index) => (
+                {[Facebook, Instagram, Twitter, Linkedin].map((Social, index) => (
                   <motion.a
                     key={index}
                     href="#"
-                    className="w-12 h-12 bg-gray-800/50 border border-gray-700/50 rounded-xl flex items-center justify-center text-gray-400 hover:text-amber-400 hover:border-amber-400/50 transition-all"
+                    className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-amber-400 hover:bg-gray-700 transition-all"
                     whileHover={{ scale: 1.1, y: -2 }}
                   >
                     <Social className="w-5 h-5" />
@@ -923,34 +653,11 @@ export default function PremiumHotelWebsite() {
               </div>
             </div>
 
-            {/* Contact */}
+            {/* Navigate */}
             <div>
-              <h4 className="text-xl font-semibold text-white mb-6">Contact</h4>
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <MapPin className="w-5 h-5 text-amber-400 flex-shrink-0 mt-1" />
-                  <div className="text-gray-400">
-                    <div>UB City Mall Complex</div>
-                    <div>Vittal Mallya Road</div>
-                    <div>Bangalore 560001</div>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Phone className="w-5 h-5 text-amber-400" />
-                  <span className="text-gray-400">+91 80 4567 8900</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Mail className="w-5 h-5 text-amber-400" />
-                  <span className="text-gray-400">concierge@heritage.com</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Quick Links */}
-            <div>
-              <h4 className="text-xl font-semibold text-white mb-6">Explore</h4>
+              <h4 className="text-lg font-semibold mb-6">Navigate</h4>
               <div className="space-y-3">
-                {['Luxury Suites', 'Fine Dining', 'Spa & Wellness', 'Experiences', 'Events', 'Gallery'].map((link) => (
+                {['Home', 'Menu', 'About', 'Contact', 'Book Now'].map((link) => (
                   <motion.a
                     key={link}
                     href="#"
@@ -962,31 +669,65 @@ export default function PremiumHotelWebsite() {
                 ))}
               </div>
             </div>
+
+            {/* Menu Categories */}
+            <div>
+              <h4 className="text-lg font-semibold mb-6">Menu</h4>
+              <div className="space-y-3">
+                {['Appetizers', 'Main Course', 'Desserts', 'Beverages', 'Chef Specials'].map((category) => (
+                  <motion.a
+                    key={category}
+                    href="#"
+                    className="block text-gray-400 hover:text-amber-400 transition-colors"
+                    whileHover={{ x: 5 }}
+                  >
+                    {category}
+                  </motion.a>
+                ))}
+              </div>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h4 className="text-lg font-semibold mb-6">Contact</h4>
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3">
+                  <Phone className="w-5 h-5 text-amber-400" />
+                  <span className="text-gray-400">+91-794-676-4735</span>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <MapPin className="w-5 h-5 text-amber-400 mt-1" />
+                  <div className="text-gray-400">
+                    <div>UB City Mall Complex</div>
+                    <div>Vittal Mallya Road</div>
+                    <div>Bangalore, Karnataka 560001</div>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Mail className="w-5 h-5 text-amber-400" />
+                  <span className="text-gray-400">info@heritageuc.co</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Clock className="w-5 h-5 text-amber-400" />
+                  <div className="text-gray-400">
+                    <div>Daily: 11:00 AM - 11:30 PM</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="border-t border-gray-800 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-500 text-sm">
-              © 2024 The Heritage Bangalore. Luxury Hospitality Redefined.
+              ©2024, The Heritage Restaurant. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
+              <a href="#" className="text-gray-500 hover:text-amber-400 text-sm transition-colors">Terms & Conditions</a>
               <a href="#" className="text-gray-500 hover:text-amber-400 text-sm transition-colors">Privacy Policy</a>
-              <a href="#" className="text-gray-500 hover:text-amber-400 text-sm transition-colors">Terms of Service</a>
             </div>
           </div>
         </div>
       </footer>
-
-      {/* Back to Top Button */}
-      <motion.button
-        initial={{ opacity: 0 }}
-        animate={{ opacity: scrollYProgress.get() > 0.2 ? 1 : 0 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-8 right-8 z-50 w-14 h-14 bg-gradient-to-r from-amber-500 to-yellow-500 rounded-full flex items-center justify-center text-black shadow-2xl hover:shadow-amber-500/25 transition-all"
-      >
-        <ArrowUp className="w-6 h-6" />
-      </motion.button>
     </div>
   );
 }
