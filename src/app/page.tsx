@@ -5,25 +5,16 @@ import {
   Calendar, 
   Users, 
   Star, 
-  Wifi, 
-  Car, 
-  Coffee, 
   Waves, 
-  Utensils, 
-  Dumbbell, 
   MapPin, 
   Phone, 
   Mail, 
-  Clock,
   Menu,
   X,
-  ChevronDown,
-  Award,
   Shield,
   Sparkles,
   ChefHat,
   Wine,
-  UtensilsCrossed,
   Play,
   ArrowRight,
   Check,
@@ -34,19 +25,16 @@ import {
   ArrowUp,
   Quote,
   Camera,
-  Globe,
   Zap,
   Heart
 } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function PremiumHotelWebsite() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
   
   const { scrollY, scrollYProgress } = useScroll();
   const backgroundY = useTransform(scrollY, [0, 1000], [0, -300]);
@@ -378,7 +366,7 @@ export default function PremiumHotelWebsite() {
                 animate={{ scale: [1, 1.02, 1] }}
                 transition={{ duration: 3, repeat: Infinity }}
               >
-                ✨ Bangalore's Most Prestigious Address
+                ✨ Bangalore&apos;s Most Prestigious Address
               </motion.div>
               
               <motion.h1 
@@ -425,8 +413,8 @@ export default function PremiumHotelWebsite() {
               className="text-xl md:text-2xl text-gray-300 font-light leading-relaxed max-w-4xl mx-auto"
             >
               Where architectural grandeur meets contemporary luxury. 
-              <span className="text-amber-400"> Experience India's finest hospitality </span>
-              in the heart of Bangalore's tech capital.
+              <span className="text-amber-400"> Experience India&apos;s finest hospitality </span>
+              in the heart of Bangalore&apos;s tech capital.
             </motion.p>
 
             <motion.div 
@@ -464,10 +452,10 @@ export default function PremiumHotelWebsite() {
               className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-16 max-w-3xl mx-auto"
             >
               {[
-                { number: "50+", label: "Luxury Suites", suffix: "" },
-                { number: "25", label: "Years Legacy", suffix: "+" },
-                { number: "98", label: "Guest Satisfaction", suffix: "%" },
-                { number: "24/7", label: "Concierge", suffix: "" }
+                { number: "50+", label: "Luxury Suites" },
+                { number: "25", label: "Years Legacy" },
+                { number: "98", label: "Guest Satisfaction" },
+                { number: "24/7", label: "Concierge" }
               ].map((stat, index) => (
                 <motion.div
                   key={index}
@@ -620,7 +608,7 @@ export default function PremiumHotelWebsite() {
             </h2>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
               Each suite is a masterpiece of design, featuring bespoke furnishings, 
-              premium amenities, and breathtaking views of Bangalore's skyline.
+              premium amenities, and breathtaking views of Bangalore&apos;s skyline.
             </p>
           </motion.div>
 
@@ -869,7 +857,7 @@ export default function PremiumHotelWebsite() {
                 <Quote className="w-12 h-12 text-amber-400/20 mb-6" />
                 
                 <p className="text-gray-300 text-lg leading-relaxed mb-6 italic">
-                  "{testimonial.quote}"
+                  &ldquo;{testimonial.quote}&rdquo;
                 </p>
 
                 <div className="flex items-center space-x-1 mb-6">
@@ -917,7 +905,7 @@ export default function PremiumHotelWebsite() {
                 </div>
               </div>
               <p className="text-gray-400 leading-relaxed mb-8 max-w-md">
-                Where architectural grandeur meets contemporary luxury in India's tech capital. 
+                Where architectural grandeur meets contemporary luxury in India&apos;s tech capital. 
                 Experience unparalleled hospitality redefined.
               </p>
               <div className="flex space-x-4">
